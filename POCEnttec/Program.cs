@@ -1,33 +1,31 @@
-﻿using System;
+﻿using POCEnttec.OpenDmx;
+using POCEnttec.OpenDmx.FTD2XX;
+using POCEnttec.Utils;
+using System;
 using System.IO.Ports;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace POCEnttec
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        //public static void Main(string[] args)
+        //{
+        //    Test_Open();
+        //}
+
+        public static async Task Main(string[] args)
         {
-            Console.WriteLine("Available ports:");
-            
-            string[] portNames = SerialPort.GetPortNames();
-            if (!portNames.Any())
-                throw new InvalidOperationException("No COM port found");
-            else if (portNames.Length > 1)
-                throw new InvalidOperationException("Multiple COM ports found");
+            //IDemo demo = new SerialPortProgram();
+            IDemo demo = new FTD2XXProgram();
 
-            string portName = portNames.Single();
-            int baudRate = 57600;
+            const int totalDuration = 20_000;
 
-            using SerialPort serialPort = new SerialPort(portName, baudRate);
-
-            Console.WriteLine($"Opening Serial Port: {portName}");
-            serialPort.Open();
-            Console.WriteLine($"Serial Port opened: {portName}");
-
-            Console.WriteLine($"Closing Serial Port: {portName}");
-            serialPort.Close();
-            Console.WriteLine($"Serial Port closed: {portName}");
+            CancellationTokenSource cts = new CancellationTokenSource(totalDuration);
+            await demo.Demo(cts.Token);
         }
     }
 }
