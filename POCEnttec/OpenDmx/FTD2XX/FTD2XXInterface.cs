@@ -41,8 +41,6 @@ namespace POCEnttec.OpenDmx.FTD2XX
         {
             lock (mutex)
             {
-                //InitOpenDmx();
-
                 FT_STATUS status = FT_SetBreakOn(data.handle);
                 CheckStatus(status, nameof(FT_SetBreakOn));
 

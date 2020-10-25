@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace POCEnttec.OpenDmx
+﻿namespace POCEnttec.OpenDmx
 {
     public static class OpenDmxExtensions
     {
